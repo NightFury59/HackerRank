@@ -1,0 +1,16 @@
+https://www.hackerrank.com/challenges/py-if-else/problem
+
+if __name__ == '__main__':
+    n=input()
+n=int(n)
+if n>=1 and n<=100:
+    if n%2==1:
+        print("Weird")
+    elif n%2:
+        print("Not Weird")
+    elif 2 <= n <= 5:
+        print("Not Weird")
+    elif 6 <= n <= 20:
+        print("Weird")
+    elif n>20:
+        print("Not Weird")
