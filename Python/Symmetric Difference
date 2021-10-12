@@ -15,4 +15,3 @@ result = sorted(result)
 
 for el in result:
     print(el)
-    
