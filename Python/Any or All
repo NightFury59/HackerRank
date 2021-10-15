@@ -1,0 +1,11 @@
+https://www.hackerrank.com/challenges/any-or-all/problem
+
+input()
+def i32(vs): return int(''.join(vs))
+xs = input().split()
+ys = [x > 0 for x in list(map(int, xs))]
+
+if all(ys):
+    print(any([ i32(x) == i32(reversed(x)) for x in list(map(list,xs))]))
+else:
+    print(False)
