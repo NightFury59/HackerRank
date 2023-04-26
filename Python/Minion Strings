@@ -1,0 +1,16 @@
+s = input()
+N = len(s)
+c_count, v_count = 0, 0
+i = 0
+while i < N:
+    if s[i] in ['A', 'E', 'I', 'O', 'U']:
+        v_count += len(s) - i
+    else:
+        c_count += len(s) - i
+    i += 1
+if c_count == v_count:
+    print("Draw")
+elif c_count > v_count:
+    print("Stuart " + str(c_count))
+else:
+    print("Kevin " + str(v_count))
