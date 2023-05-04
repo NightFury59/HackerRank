@@ -1,0 +1,20 @@
+from itertools import combinations
+class Solution:
+    def maxPoints(self, points: List[List[int]]) -> int:
+        if len(points)==1: return 1
+        lines = dict()
+        for (x1,y1),(x2,y2) in combinations(points, 2):
+            if x1==x2:
+                line = (x1, None)
+            elif y1==y2:
+                line = (None, y1)
+            else:
+                slope = (y1-y2)/(x1-x2)
+                intercept = y1-slope*x1
+                line = (slope, intercept) 
+            if line in lines:
+                lines[line].add((x1,y1))
+                lines[line].add((x2,y2))
+            else:
+                lines[line] = {(x1,y1),(x2,y2)}
+        return sorted([len(v) for v in lines.values()])[-1]
