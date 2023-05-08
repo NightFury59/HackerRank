@@ -1,0 +1,18 @@
+class Solution:
+    def smallestGoodBase(self, n: str) -> str:
+        #uplimit denotes the upper limit of power i.e. k+1
+        uplimit=ceil(log(int(n)+1,2))
+        print(uplimit)
+        p=uplimit
+        while p>1:
+            left=2
+            right=int(n)
+            #index=-1
+            while left<=right:
+                mid=(left+right)//2
+                temp=((mid**p)-1)//(mid-1)
+                if temp==int(n):return str(mid)
+                elif temp<int(n):left=mid+1
+                else:right=mid-1
+            p-=1
+        return ""
