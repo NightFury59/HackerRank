@@ -1,0 +1,48 @@
+class Solution:
+    def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:
+        def iformat(line, maxWidth: int):
+            words = line.split()
+            wordsLen = sum([len(w) for w in words])
+            blankCnt = len(words) - 1
+            blankTot = maxWidth - wordsLen
+
+            
+            if blankCnt:
+                blanks = [blankTot // blankCnt for i in range(blankCnt)]
+                remain = blankTot - blankCnt * (blankTot // blankCnt)
+                for i in range(remain):
+                    blanks[i] += 1
+
+            newline = ""
+            for i in range(blankCnt):
+                newline += words[i]
+                newline += " " * blanks[i]
+            newline += words[-1]
+
+            return newline.ljust(maxWidth)
+
+        def reformat(line: str, maxWidth: int):
+            words = line.split()
+            newline = ""
+            for w in words:
+                newline += (w + " ")
+            return newline.ljust(maxWidth)[:maxWidth]
+
+        ans = []
+        line = ""
+        for w in words:
+            if len(line) + len(w) == maxWidth:
+                line += w
+                continue
+            if len(line) + len(w) > maxWidth:
+                formatted = iformat(line, maxWidth)
+                ans.append(formatted)
+                line = (w + " ")
+            else:
+                line += (w + " ")
+        
+        formatted = iformat(line, maxWidth)
+        ans.append(line)
+        ans[-1] = reformat(ans[-1], maxWidth)
+        # print(len(ans[-1]))
+        return ans
