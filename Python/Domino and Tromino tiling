@@ -1,0 +1,36 @@
+class Solution:
+    def numTilings(self, n: int) -> int:
+
+        conf = defaultdict(list)
+        conf[1] = [[1,1],[2,2],[2,1],[1,2]]  ##4 possible blocks when i==j
+        conf[2] = [[0,2],[1,2]]  ##2 possible blocks when i>j
+        conf[3] = [[2,0],[2,1]]  ##2 possible blocks when i<j
+        # @cache
+        def dp(i,j):
+            nonlocal conf,n,memo
+            tempcount = 0
+
+            if i==n and j==n:
+                return 1
+            if i>n or j>n:
+                return 0
+            if (i,j) in memo:
+                return memo[(i,j)]
+
+            if (i==j):
+                for c in conf[1]:
+                    tempcount += dp(i+c[0],j+c[1])
+            if (i>j):
+                for c in conf[2]:
+                    tempcount += dp(i+c[0],j+c[1])
+            if (i<j):
+                for c in conf[3]:
+                    tempcount += dp(i+c[0],j+c[1])
+            
+            memo[(i,j)] = tempcount
+            return tempcount
+        
+        memo = {}
+        res = dp(0,0)
+        
+        return res%(10**9+7)
