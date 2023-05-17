@@ -1,0 +1,24 @@
+class Solution:
+    def advantageCount(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        n = len(nums1)
+        nums1.sort()
+        # max heap
+        heap = []
+        for i, num in enumerate(nums2):
+            heapq.heappush(heap, (-num, i))
+        
+        left, right = 0, n-1
+        res = [0]*n
+        while heap:
+            maxnum2, idx = heapq.heappop(heap)
+            maxnum2 = -maxnum2
+            
+            # if the best horse in nums1 is slower than the best in nums2,
+            # choose the worst
+            if maxnum2 < nums1[right]:
+                res[idx] = nums1[right]
+                right -= 1
+            else:
+                res[idx] = nums1[left]
+                left += 1
+        return res
