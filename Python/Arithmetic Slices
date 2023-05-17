@@ -1,0 +1,30 @@
+class Solution:
+    # Method 1 : Count all slices. And then remove weak slices.
+    def numberOfArithmeticSlices(self, nums: list[int]) -> int:
+        n, total_slices = len(nums), 0
+        dp: list[dict[int, int]] = [defaultdict(int) for _ in range(n)]
+
+        for i in range(n):
+            for j in range(i):
+                diff = nums[i] - nums[j]
+                dp[i][diff] += dp[j][diff] + 1
+
+        for idx in dp:
+            for diff in idx:
+                total_slices += idx[diff]
+
+        pure_weak_slices = n * (n - 1) / 2
+        return int(total_slices - pure_weak_slices)
+
+    # Method 2 : Count only valid slices.
+    def numberOfArithmeticSlices(self, nums: list[int]) -> int:
+        n, slices = len(nums), 0
+        dp: list[dict[int, int]] = [defaultdict(int) for _ in range(n)]
+
+        for i in range(n):
+            for j in range(i):
+                diff = nums[i] - nums[j]
+                dp[i][diff] += dp[j][diff] + 1
+                slices += dp[j][diff]
+
+        return slices
